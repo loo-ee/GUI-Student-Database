@@ -60,7 +60,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.louie.guistudentdatabase/com.louie.guistudentdatabase.HelloApplication
+                            <mainClass>com.louie.guistudentdatabase/com.louie.guistudentdatabase.Main
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
