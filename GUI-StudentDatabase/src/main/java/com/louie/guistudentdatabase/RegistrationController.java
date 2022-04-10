@@ -23,7 +23,12 @@ public class RegistrationController {
     @FXML private TextField passwordField;
     @FXML private TextField confirmField;
 
+    private static Stage stage;
     private String loginCss = Objects.requireNonNull(this.getClass().getResource("CSS/login.css")).toExternalForm();
+
+    public static void setStage(Stage stage) {
+        RegistrationController.stage = stage;
+    }
 
     public void register(ActionEvent event) throws ExceptionHandling {
 
@@ -57,10 +62,9 @@ public class RegistrationController {
     public void returnLogin(ActionEvent event) throws IOException {
         FXMLLoader login = new FXMLLoader(getClass().getResource("Scenes/login.fxml"));
         Parent root = login.load();
-        Stage loginStage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        Scene scene1 = new Scene(root);
-        scene1.getStylesheets().add(loginCss);
-        loginStage.setScene(scene1);
-        loginStage.show();
+        Scene loginScene = new Scene(root);
+        loginScene.getStylesheets().add(loginCss);
+        stage.setScene(loginScene);
+        stage.show();
     }
 }

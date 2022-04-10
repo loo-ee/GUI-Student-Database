@@ -27,6 +27,7 @@ public class LoginController implements Initializable {
     @FXML private TextField usernameField;
     @FXML private TextField passwordField;
 
+    private static Stage stage;
     private String userName;
     private String password;
     private final String scene1Css = Objects.requireNonNull(this.getClass().getResource("CSS/scene1.css")).toExternalForm();
@@ -38,19 +39,23 @@ public class LoginController implements Initializable {
 
     }
 
+    public static void setStage(Stage stage) {
+        LoginController.stage = stage;
+    }
+
     public void login(ActionEvent event) {
 
         try {
 
             if (validateLogin()) {
-                FXMLLoader scene1Loader = new FXMLLoader(getClass().getResource("Scenes/scene1.fxml"));
+                FXMLLoader scene1Loader = new FXMLLoader(getClass().getResource("Scenes/HomePage.fxml"));
                 Parent root = scene1Loader.load();
-                Stage scene1Stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-                Scene scene1 = new Scene(root);
-                scene1.getStylesheets().add(scene1Css);
-                scene1Stage.setScene(scene1);
-                scene1Stage.setTitle("Hehe");
-                scene1Stage.show();
+                Scene homePageScene = new Scene(root);
+                homePageScene.getStylesheets().add(scene1Css);
+                stage.setScene(homePageScene);
+                stage.show();
+
+                HomePageController.setScene(homePageScene);
             }
             else {
                 loginLabel.setText("Account not found!");
@@ -64,11 +69,10 @@ public class LoginController implements Initializable {
     public void register(ActionEvent event) throws IOException {
         FXMLLoader registration = new FXMLLoader(getClass().getResource("Scenes/registration.fxml"));
         Parent root = registration.load();
-        Stage registrationStage = (Stage)((Node)event.getSource()).getScene().getWindow();
         Scene scene1 = new Scene(root);
         scene1.getStylesheets().add(registrationCss);
-        registrationStage.setScene(scene1);
-        registrationStage.show();
+        stage.setScene(scene1);
+        stage.show();
 
     }
 

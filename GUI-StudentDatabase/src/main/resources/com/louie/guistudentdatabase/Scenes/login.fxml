@@ -6,19 +6,19 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="loginPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.louie.guistudentdatabase.LoginController">
+<AnchorPane fx:id="loginPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.louie.guistudentdatabase.LoginController">
    <children>
-      <Label fx:id="loginLabel" alignment="CENTER" layoutY="95.0" prefHeight="17.0" prefWidth="600.0" text="Login to Proceed">
+      <Label fx:id="loginLabel" alignment="CENTER" layoutX="-1.0" layoutY="97.0" prefHeight="45.0" prefWidth="1004.0" text="Login to Proceed">
          <font>
             <Font size="30.0" />
          </font>
       </Label>
-      <Button fx:id="loginButton" layoutX="278.0" layoutY="277.0" mnemonicParsing="false" onAction="#login" text="login" />
-      <TextField fx:id="usernameField" layoutX="274.0" layoutY="175.0" />
-      <TextField fx:id="passwordField" layoutX="274.0" layoutY="225.0" />
-      <Label fx:id="usernameLabel" layoutX="175.0" layoutY="179.0" text="Enter username:" />
-      <Label fx:id="passwordLabel" layoutX="175.0" layoutY="229.0" text="Enter password:" />
-      <Button fx:id="registerButton" layoutX="270.0" layoutY="360.0" mnemonicParsing="false" onAction="#register" text="register" />
-      <Label fx:id="registerLabel" layoutX="206.0" layoutY="332.0" text="If you have not created an account:" />
+      <Button fx:id="loginButton" layoutX="496.0" layoutY="329.0" mnemonicParsing="false" onAction="#login" text="login" />
+      <TextField fx:id="usernameField" layoutX="466.0" layoutY="217.0" />
+      <TextField fx:id="passwordField" layoutX="468.0" layoutY="276.0" />
+      <Label fx:id="usernameLabel" layoutX="373.0" layoutY="218.0" text="Enter username:" />
+      <Label fx:id="passwordLabel" layoutX="374.0" layoutY="281.0" text="Enter password:" />
+      <Button fx:id="registerButton" layoutX="490.0" layoutY="476.0" mnemonicParsing="false" onAction="#register" text="register" />
+      <Label fx:id="registerLabel" layoutX="426.0" layoutY="423.0" text="If you have not created an account:" />
    </children>
 </AnchorPane>
