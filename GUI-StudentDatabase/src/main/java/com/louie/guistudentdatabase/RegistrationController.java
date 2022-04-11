@@ -61,6 +61,10 @@ public class RegistrationController {
                 registrationLabel.setText("Passwords don't match!");
                 registrationLabel.setStyle("-fx-text-fill: white;" + "-fx-background-color: red;");
             }
+
+            LoginDataBase.refreshVector();
+            HomePageController.setFetchData(true);
+
         } catch (ExceptionHandling e) {
             registrationLabel.setText(e.getMessage());
             registrationLabel.setStyle("-fx-text-fill: white;" + "-fx-background-color: red;");

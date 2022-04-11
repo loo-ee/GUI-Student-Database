@@ -22,7 +22,7 @@ public class HomePageController implements Initializable {
     @FXML private Button returnToLoginButton;
     @FXML private ListView<String> homePageListView;
 
-    private static boolean firstLogin = true;
+    private static boolean fetchData = true;
     private static Stage stage;
     private static Scene scene;
     private final String loginCss = Objects.requireNonNull(this.getClass().getResource("CSS/login.css")).toExternalForm();
@@ -30,12 +30,12 @@ public class HomePageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        homePageListView.getItems().addAll(LoginDataBase.getListUserNames(firstLogin));
-        firstLogin = false;
+        homePageListView.getItems().addAll(LoginDataBase.getListUserNames(fetchData));
+        fetchData = false;
     }
 
-    public static void setFirstLogin(boolean status) {
-        HomePageController.firstLogin = status;
+    public static void setFetchData(boolean status) {
+        HomePageController.fetchData = status;
     }
 
     public static void setStage(Stage stage) {
@@ -69,7 +69,7 @@ public class HomePageController implements Initializable {
         Scene loginScene = new Scene(root);
 
         if (!isButtonPressed) {
-            setFirstLogin(true);
+            setFetchData(true);
         }
 
         loginScene.getStylesheets().add(loginCss);

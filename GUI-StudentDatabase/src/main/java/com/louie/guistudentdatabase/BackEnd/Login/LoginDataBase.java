@@ -7,12 +7,18 @@ import java.util.Vector;
 
 public class LoginDataBase {
     private static LinkedList<User> userList = new LinkedList<>();
-    private static Queue<String> userNames = new PriorityQueue<>();
+//    private static Queue<String> userNames = new PriorityQueue<>();
+    private static Vector<String> userNames = new Vector<>();
     private static Vector<String> filesVector = new Vector<>();
     private static File database = new File("LoginDatabase\\Login Database.txt");
 
     public static void init() {
         readFiles();
+    }
+
+    public static void refreshVector() {
+        userNames.clear();
+        System.out.println("[STATUS] Login data was refreshed");
     }
 
     public static void readFiles() {
@@ -22,6 +28,7 @@ public class LoginDataBase {
 
             if (!database.isFile()) {
                 writeFiles();
+                System.out.println("[STATUS] Database created");
             }
 
             String line;
@@ -58,21 +65,25 @@ public class LoginDataBase {
             User user;
             filesVector.clear();
 
-            for (int i = 0; i < userList.getListSize(); i++) {
-                user = userList.returnNode(i);
-                writer.append(user.getUserName()).append("\n");
-                writer.append(user.getPassword()).append("\n");
+            if (userList.getListSize() != 0) {
+                for (int i = 0; i < userList.getListSize(); i++) {
+                    user = userList.returnNode(i);
+                    writer.append(user.getUserName()).append("\n");
+                    writer.append(user.getPassword()).append("\n");
+
+                    System.out.println("[STATUS] Data was uploaded to file");
+                }
             }
             writer.close();
-            System.out.println("[STATUS] Data was uploaded to file");
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static Queue<String> getListUserNames(boolean firstLogin) {
+    public static Vector<String> getListUserNames(boolean fetchUserNames) {
 
-        if (firstLogin) {
+        if (fetchUserNames) {
             User user;
 
             for (int i = 0; i < userList.getListSize(); i++) {
@@ -84,7 +95,7 @@ public class LoginDataBase {
     }
 
     public static void addUser(User user) {
-        userList.insertList(user);
+        userList.appendList(user);
     }
 
     public static boolean validateUser(String combination) {
