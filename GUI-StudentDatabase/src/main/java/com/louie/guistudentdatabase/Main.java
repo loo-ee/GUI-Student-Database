@@ -20,7 +20,7 @@ public class Main extends Application {
 
         String loginCss = Objects.requireNonNull(this.getClass().getResource("CSS/login.css")).toExternalForm();
         loginScene.getStylesheets().add(loginCss);
-        LoginDataBase.readFiles();
+        LoginDataBase.init();
 
         stage.setTitle("Login Account");
         stage.setScene(loginScene);
@@ -44,7 +44,7 @@ public class Main extends Application {
 
         if (alert.showAndWait().get() == ButtonType.OK) {
             LoginDataBase.writeFiles();
-            System.out.println("You have exited the program");
+            System.out.println("[STATUS] You have exited the program");
             stage.close();
         }
     }

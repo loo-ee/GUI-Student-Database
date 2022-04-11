@@ -143,7 +143,7 @@ public class LinkedList<T> {
         return size;
     }
 
-    public void displayListContents() {
+    public void displayListContents(String listType) {
         NodeList<T> nodePtr = head;
         int counter = 1;
 
@@ -153,7 +153,7 @@ public class LinkedList<T> {
         }
 
         while (nodePtr != null) {
-            System.out.println("Student #" + (counter++) + ":\n" + nodePtr.element);
+            System.out.println(listType + " #" + (counter++) + ":\n" + nodePtr.element);
             nodePtr = nodePtr.next;
         }
     }

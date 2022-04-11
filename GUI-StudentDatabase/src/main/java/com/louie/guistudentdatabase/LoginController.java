@@ -5,10 +5,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -20,19 +18,12 @@ import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
     @FXML private Label loginLabel;
-    @FXML private Label usernameLabel;
-    @FXML private Label passwordLabel;
-    @FXML private Button loginButton;
-    @FXML private Button registerButton;
-    @FXML private TextField usernameField;
+    @FXML private TextField userNameField;
     @FXML private TextField passwordField;
 
     private static Stage stage;
-    private String userName;
-    private String password;
     private final String scene1Css = Objects.requireNonNull(this.getClass().getResource("CSS/scene1.css")).toExternalForm();
     private final String registrationCss = Objects.requireNonNull(this.getClass().getResource("CSS/registration.css")).toExternalForm();
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -46,16 +37,14 @@ public class LoginController implements Initializable {
     public void login(ActionEvent event) {
 
         try {
-
             if (validateLogin()) {
                 FXMLLoader scene1Loader = new FXMLLoader(getClass().getResource("Scenes/HomePage.fxml"));
                 Parent root = scene1Loader.load();
                 Scene homePageScene = new Scene(root);
+
                 homePageScene.getStylesheets().add(scene1Css);
                 stage.setScene(homePageScene);
                 stage.show();
-
-                HomePageController.setScene(homePageScene);
             }
             else {
                 loginLabel.setText("Account not found!");
@@ -70,14 +59,15 @@ public class LoginController implements Initializable {
         FXMLLoader registration = new FXMLLoader(getClass().getResource("Scenes/registration.fxml"));
         Parent root = registration.load();
         Scene scene1 = new Scene(root);
+
         scene1.getStylesheets().add(registrationCss);
         stage.setScene(scene1);
         stage.show();
-
     }
 
     public boolean validateLogin() {
-        String combination = "Username: " + usernameField.getText() + "\nPassword: " + passwordField.getText() + "\n";
+        String combination = "Username: " + userNameField.getText() + "\nPassword: " + passwordField.getText() + "\n";
+
         return LoginDataBase.validateUser(combination);
     }
 }

@@ -18,24 +18,24 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class HomePageController implements Initializable {
-    @FXML private Label homePageLabel;
-    @FXML private Button surpriseButton;
-    @FXML private Button returnToLoginButton;
     @FXML private ImageView scene1ImageView;
+    @FXML private Button returnToLoginButton;
     @FXML private ListView<String> homePageListView;
 
+    private static boolean firstLogin = true;
     private static Stage stage;
     private static Scene scene;
-    private String loginCss = Objects.requireNonNull(this.getClass().getResource("CSS/login.css")).toExternalForm();
-    private Image myImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("Files/hehe.png")));
+    private final String loginCss = Objects.requireNonNull(this.getClass().getResource("CSS/login.css")).toExternalForm();
+    private final Image myImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("Files/hehe.png")));
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        homePageListView.getItems().addAll(LoginDataBase.getListUserNames());
+        homePageListView.getItems().addAll(LoginDataBase.getListUserNames(firstLogin));
+        firstLogin = false;
     }
 
-    public static void setScene(Scene scene) {
-        HomePageController.scene = scene;
+    public static void setFirstLogin(boolean status) {
+        HomePageController.firstLogin = status;
     }
 
     public static void setStage(Stage stage) {
@@ -46,10 +46,32 @@ public class HomePageController implements Initializable {
         scene1ImageView.setImage(myImage);
     }
 
-    public void returnToLogin(ActionEvent event) throws IOException {
+    public void setReturnToLoginButton(ActionEvent event) throws IOException {
+        returnToLogin(true);
+    }
+
+    public void clearList(ActionEvent event) throws IOException {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Clear List");
+        alert.setHeaderText("You are about to clear existing records!");
+        alert.setContentText("Press OK to clear list");
+
+        if (alert.showAndWait().get() == ButtonType.OK) {
+            LoginDataBase.clearLinkedList();
+            System.out.println("[STATUS] Accounts were cleared");
+        }
+        returnToLogin(false);
+    }
+
+    public void returnToLogin(boolean isButtonPressed) throws IOException {
         FXMLLoader login = new FXMLLoader(getClass().getResource("Scenes/login.fxml"));
         Parent root = login.load();
         Scene loginScene = new Scene(root);
+
+        if (!isButtonPressed) {
+            setFirstLogin(true);
+        }
+
         loginScene.getStylesheets().add(loginCss);
         stage.setScene(loginScene);
         stage.show();

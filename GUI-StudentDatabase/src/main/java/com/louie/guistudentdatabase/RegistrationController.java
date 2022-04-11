@@ -6,10 +6,8 @@ import com.louie.guistudentdatabase.BackEnd.Login.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -24,27 +22,37 @@ public class RegistrationController {
     @FXML private TextField confirmField;
 
     private static Stage stage;
-    private String loginCss = Objects.requireNonNull(this.getClass().getResource("CSS/login.css")).toExternalForm();
+    private final String loginCss = Objects.requireNonNull(this.getClass().getResource("CSS/login.css")).toExternalForm();
 
     public static void setStage(Stage stage) {
         RegistrationController.stage = stage;
     }
 
-    public void register(ActionEvent event) throws ExceptionHandling {
+    public void register(ActionEvent event) {
 
         try {
-
             if (userNameField.getText().equals("") || passwordField.getText().equals("") || confirmField.getText().equals("")) {
-                throw new ExceptionHandling("Please fill all fields");
+                throw new ExceptionHandling("Please fill all fields!");
+            }
+
+            if (validateLogin()) {
+                userNameField.clear();
+                passwordField.clear();
+                confirmField.clear();
+
+                throw new ExceptionHandling("Account already exists!");
             }
 
             if (passwordField.getText().equals(confirmField.getText())) {
                 User user = new User();
+
                 user.setUserName(userNameField.getText());
                 user.setPassword(passwordField.getText());
                 LoginDataBase.addUser(user);
-                LoginDataBase.displayList();
+                System.out.println("[STATUS] Database was updated");
+                LoginDataBase.displayList("User");
                 registrationLabel.setText("Registration completed!");
+
                 userNameField.clear();
                 passwordField.clear();
                 confirmField.clear();
@@ -63,8 +71,15 @@ public class RegistrationController {
         FXMLLoader login = new FXMLLoader(getClass().getResource("Scenes/login.fxml"));
         Parent root = login.load();
         Scene loginScene = new Scene(root);
+
         loginScene.getStylesheets().add(loginCss);
         stage.setScene(loginScene);
         stage.show();
+    }
+
+    public boolean validateLogin() {
+        String combination = "Username: " + userNameField.getText() + "\nPassword: " + passwordField.getText() + "\n";
+
+        return LoginDataBase.validateUser(combination);
     }
 }

@@ -1,7 +1,5 @@
 package com.louie.guistudentdatabase.BackEnd.Login;
 
-import com.louie.guistudentdatabase.DataBase.Student;
-
 import java.io.*;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -11,21 +9,28 @@ public class LoginDataBase {
     private static LinkedList<User> userList = new LinkedList<>();
     private static Queue<String> userNames = new PriorityQueue<>();
     private static Vector<String> filesVector = new Vector<>();
-    private static File database = new File("D:\\GitHub\\JAVA\\GUI-Student-Database\\GUI-StudentDatabase\\src\\main\\java\\com\\louie\\guistudentdatabase\\DataBase\\DataBase.txt");
+    private static File database = new File("LoginDatabase\\Login Database.txt");
 
     public static void init() {
-
+        readFiles();
     }
 
     public static void readFiles() {
+
         try {
             filesVector.clear();
-            FileReader reader = new FileReader(database);
-            BufferedReader bufferedReader = new BufferedReader(reader);
+
+            if (!database.isFile()) {
+                writeFiles();
+            }
+
             String line;
             String userName;
             String password;
             int count = 0;
+
+            FileReader reader = new FileReader(database);
+            BufferedReader bufferedReader = new BufferedReader(reader);
 
             while ((line = bufferedReader.readLine()) != null) {
                 filesVector.add(line);
@@ -39,7 +44,7 @@ public class LoginDataBase {
 
                 userList.appendList(new User(userName, password));
             }
-            System.out.println("Done");
+            System.out.println("[STATUS] Data from file was retrieved");
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -47,6 +52,7 @@ public class LoginDataBase {
     }
 
     public static void writeFiles() {
+
         try {
             FileWriter writer = new FileWriter(database);
             User user;
@@ -58,18 +64,21 @@ public class LoginDataBase {
                 writer.append(user.getPassword()).append("\n");
             }
             writer.close();
-            System.out.println("Done too");
+            System.out.println("[STATUS] Data was uploaded to file");
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static Queue<String> getListUserNames() {
-        User user;
+    public static Queue<String> getListUserNames(boolean firstLogin) {
 
-        for (int i = 0; i < userList.getListSize(); i++) {
-            user = userList.returnNode(i);
-            userNames.add((i+1) + ": " + user.getUserName());
+        if (firstLogin) {
+            User user;
+
+            for (int i = 0; i < userList.getListSize(); i++) {
+                user = userList.returnNode(i);
+                userNames.add((i+1) + ": " + user.getUserName());
+            }
         }
         return userNames;
     }
@@ -82,7 +91,13 @@ public class LoginDataBase {
         return userList.validateNode(combination);
     }
 
-    public static void displayList() {
-        userList.displayListContents();
+    public static void displayList(String listType) {
+        userList.displayListContents(listType);
+    }
+
+    public static void clearLinkedList() {
+        userList.clearList();
+        userNames.clear();
+        filesVector.clear();
     }
 }
