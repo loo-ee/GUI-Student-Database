@@ -19,12 +19,10 @@ import java.util.ResourceBundle;
 
 public class HomePageController implements Initializable {
     @FXML private ImageView scene1ImageView;
-    @FXML private Button returnToLoginButton;
     @FXML private ListView<String> homePageListView;
 
     private static boolean fetchData = true;
     private static Stage stage;
-    private static Scene scene;
     private final String loginCss = Objects.requireNonNull(this.getClass().getResource("CSS/login.css")).toExternalForm();
     private final Image myImage = new Image(Objects.requireNonNull(getClass().getResourceAsStream("Files/hehe.png")));
 
@@ -58,7 +56,7 @@ public class HomePageController implements Initializable {
 
         if (alert.showAndWait().get() == ButtonType.OK) {
             LoginDataBase.clearLinkedList();
-            System.out.println("[STATUS] Accounts were cleared");
+            System.out.println("[INFO] Accounts were cleared");
         }
         returnToLogin(false);
     }

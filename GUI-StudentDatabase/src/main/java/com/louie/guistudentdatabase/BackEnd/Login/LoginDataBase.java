@@ -1,13 +1,10 @@
 package com.louie.guistudentdatabase.BackEnd.Login;
 
 import java.io.*;
-import java.util.PriorityQueue;
-import java.util.Queue;
 import java.util.Vector;
 
 public class LoginDataBase {
     private static LinkedList<User> userList = new LinkedList<>();
-//    private static Queue<String> userNames = new PriorityQueue<>();
     private static Vector<String> userNames = new Vector<>();
     private static Vector<String> filesVector = new Vector<>();
     private static File database = new File("LoginDatabase\\Login Database.txt");
@@ -18,7 +15,7 @@ public class LoginDataBase {
 
     public static void refreshVector() {
         userNames.clear();
-        System.out.println("[STATUS] Login data was refreshed");
+        System.out.println("[INFO] Login data was refreshed");
     }
 
     public static void readFiles() {
@@ -28,7 +25,7 @@ public class LoginDataBase {
 
             if (!database.isFile()) {
                 writeFiles();
-                System.out.println("[STATUS] Database created");
+                System.out.println("[INFO] Database created");
             }
 
             String line;
@@ -51,7 +48,7 @@ public class LoginDataBase {
 
                 userList.appendList(new User(userName, password));
             }
-            System.out.println("[STATUS] Data from file was retrieved");
+            System.out.println("[INFO] Data from file was retrieved");
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -70,9 +67,8 @@ public class LoginDataBase {
                     user = userList.returnNode(i);
                     writer.append(user.getUserName()).append("\n");
                     writer.append(user.getPassword()).append("\n");
-
-                    System.out.println("[STATUS] Data was uploaded to file");
                 }
+                System.out.println("[INFO] Data was uploaded to file");
             }
             writer.close();
 

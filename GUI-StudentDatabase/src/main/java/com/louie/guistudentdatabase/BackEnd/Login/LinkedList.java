@@ -1,7 +1,5 @@
 package com.louie.guistudentdatabase.BackEnd.Login;
 
-import java.util.Vector;
-
 public class LinkedList<T> {
     private class NodeList<E> {
         private E element;
@@ -151,6 +149,8 @@ public class LinkedList<T> {
             System.out.println("\nNO DATA");
             return;
         }
+
+        System.out.println("\n[INFO] Showing list of " + listType + "s");
 
         while (nodePtr != null) {
             System.out.println(listType + " #" + (counter++) + ":\n" + nodePtr.element);

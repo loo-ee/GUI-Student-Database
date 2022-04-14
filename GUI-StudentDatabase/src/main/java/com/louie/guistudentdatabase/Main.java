@@ -44,7 +44,7 @@ public class Main extends Application {
 
         if (alert.showAndWait().get() == ButtonType.OK) {
             LoginDataBase.writeFiles();
-            System.out.println("[STATUS] You have exited the program");
+            System.out.println("[INFO] You have exited the program");
             stage.close();
         }
     }
@@ -53,5 +53,3 @@ public class Main extends Application {
         launch();
     }
 }
-
-// This is a test

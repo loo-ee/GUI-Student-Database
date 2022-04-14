@@ -9,9 +9,7 @@ public class User {
         this.password = password;
     }
 
-    public User() {
-
-    }
+    public User() {}
 
     public void setUserName(String userName) {
         this.userName = userName;
