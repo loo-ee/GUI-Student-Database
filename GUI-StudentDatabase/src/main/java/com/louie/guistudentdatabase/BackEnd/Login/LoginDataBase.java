@@ -6,26 +6,40 @@ import java.util.Vector;
 public class LoginDataBase {
     private static LinkedList<User> userList = new LinkedList<>();
     private static Vector<String> userNames = new Vector<>();
-    private static Vector<String> filesVector = new Vector<>();
-    private static File database = new File("LoginDatabase\\Login Database.txt");
+    private static Vector<String> userCredentials = new Vector<>();
+    private static File userDatabase = new File("DataBase\\Login Database.txt");
+
+    private static boolean isLoggedIn = false;
 
     public static void init() {
         readFiles();
     }
 
-    public static void refreshVector() {
+    public static void setLogInStatus(boolean status) {
+        isLoggedIn = status;
+    }
+
+    public static boolean getLogInStatus() {
+        return isLoggedIn;
+    }
+
+    public static void refreshUserNamesVector() {
         userNames.clear();
         System.out.println("[INFO] Login data was refreshed");
+    }
+
+    public static File getUserDatabase() {
+        return userDatabase;
     }
 
     public static void readFiles() {
 
         try {
-            filesVector.clear();
+            userCredentials.clear();
 
-            if (!database.isFile()) {
+            if (!userDatabase.isFile()) {
                 writeFiles();
-                System.out.println("[INFO] Database created");
+                System.out.println("[INFO] Database was created");
             }
 
             String line;
@@ -33,22 +47,22 @@ public class LoginDataBase {
             String password;
             int count = 0;
 
-            FileReader reader = new FileReader(database);
+            FileReader reader = new FileReader(userDatabase);
             BufferedReader bufferedReader = new BufferedReader(reader);
 
             while ((line = bufferedReader.readLine()) != null) {
-                filesVector.add(line);
+                userCredentials.add(line);
                 count++;
             }
             reader.close();
 
-            for (int i = 0; i < count; i+=2) {
-                userName = filesVector.get(i);
-                password = filesVector.get(i+1);
+            for (int i = 0; i < count; i += 2) {
+                userName = userCredentials.get(i);
+                password = userCredentials.get(i+1);
 
                 userList.appendList(new User(userName, password));
             }
-            System.out.println("[INFO] Data from file was retrieved");
+            System.out.println("[INFO] Data from database was retrieved");
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -58,9 +72,9 @@ public class LoginDataBase {
     public static void writeFiles() {
 
         try {
-            FileWriter writer = new FileWriter(database);
+            FileWriter writer = new FileWriter(userDatabase);
             User user;
-            filesVector.clear();
+            userCredentials.clear();
 
             if (userList.getListSize() != 0) {
                 for (int i = 0; i < userList.getListSize(); i++) {
@@ -68,13 +82,17 @@ public class LoginDataBase {
                     writer.append(user.getUserName()).append("\n");
                     writer.append(user.getPassword()).append("\n");
                 }
-                System.out.println("[INFO] Data was uploaded to file");
+                System.out.println("[INFO] Data was uploaded to database");
             }
             writer.close();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static User getUser(String combination) {
+        return userList.returnNode(combination);
     }
 
     public static Vector<String> getListUserNames(boolean fetchUserNames) {
@@ -102,9 +120,20 @@ public class LoginDataBase {
         userList.displayListContents(listType);
     }
 
-    public static void clearLinkedList() {
+    public static void clearUserAccounts() {
         userList.clearList();
         userNames.clear();
-        filesVector.clear();
+        userCredentials.clear();
+    }
+
+    public static LinkedList<User> getUserList() {
+        return userList;
+    }
+
+    public static void deleteUser(User user) {
+        String userName = user.getUserName();
+
+        userList.deleteNode(user);
+        System.out.println("[INFO] User \"" + userName + "\" was removed from database");
     }
 }

@@ -21,6 +21,7 @@ public class RegistrationController {
     @FXML private TextField confirmField;
 
     private static Stage stage;
+    private final String homePageCss = Objects.requireNonNull(this.getClass().getResource("CSS/homePage.css")).toExternalForm();
     private final String loginCss = Objects.requireNonNull(this.getClass().getResource("CSS/login.css")).toExternalForm();
 
     public static void setStage(Stage stage) {
@@ -55,27 +56,41 @@ public class RegistrationController {
                 userNameField.clear();
                 passwordField.clear();
                 confirmField.clear();
+
+                LoginDataBase.refreshUserNamesVector();
+                LoginDataBase.writeFiles();
+                HomePageController.setFetchData(true);
             }
             else {
                 registrationLabel.setText("Passwords don't match!");
                 registrationLabel.setStyle("-fx-text-fill: white;" + "-fx-background-color: red;");
             }
-
-            LoginDataBase.refreshVector();
-            HomePageController.setFetchData(true);
-
         } catch (ExceptionHandling e) {
             registrationLabel.setText(e.getMessage());
             registrationLabel.setStyle("-fx-text-fill: white;" + "-fx-background-color: red;");
         }
     }
 
-    public void returnLogin(ActionEvent event) throws IOException {
-        FXMLLoader login = new FXMLLoader(getClass().getResource("Scenes/login.fxml"));
+    public void returnToPreviousScene(ActionEvent event) throws IOException {
+        FXMLLoader login;
+
+        if (LoginDataBase.getLogInStatus()) {
+            login = new FXMLLoader(getClass().getResource("Scenes/homePage.fxml"));
+        }
+        else {
+            login = new FXMLLoader(getClass().getResource("Scenes/login.fxml"));
+        }
+
         Parent root = login.load();
         Scene loginScene = new Scene(root);
 
-        loginScene.getStylesheets().add(loginCss);
+        if (LoginDataBase.getLogInStatus()) {
+            loginScene.getStylesheets().add(homePageCss);
+        }
+        else {
+            loginScene.getStylesheets().add(loginCss);
+        }
+
         stage.setScene(loginScene);
         stage.show();
     }

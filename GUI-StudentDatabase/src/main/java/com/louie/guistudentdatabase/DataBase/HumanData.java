@@ -11,6 +11,8 @@ public class HumanData {
         this.age = age;
     }
 
+    public HumanData() {}
+
     public String getName() {
         return this.name;
     }

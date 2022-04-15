@@ -1,6 +1,7 @@
 package com.louie.guistudentdatabase;
 
 import com.louie.guistudentdatabase.BackEnd.Login.LoginDataBase;
+import com.louie.guistudentdatabase.BackEnd.Login.UserControl;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,12 +22,14 @@ public class LoginController implements Initializable {
     @FXML private TextField passwordField;
 
     private static Stage stage;
-    private final String scene1Css = Objects.requireNonNull(this.getClass().getResource("CSS/scene1.css")).toExternalForm();
+    private final String homePageCss = Objects.requireNonNull(this.getClass().getResource("CSS/homePage.css")).toExternalForm();
     private final String registrationCss = Objects.requireNonNull(this.getClass().getResource("CSS/registration.css")).toExternalForm();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        for (int i = 0; i < LoginDataBase.getUserList().getListSize(); i++) {
+            UserControl.init(LoginDataBase.getUserList().returnNode(i));
+        }
     }
 
     public static void setStage(Stage stage) {
@@ -34,14 +37,23 @@ public class LoginController implements Initializable {
     }
 
     public void login(ActionEvent event) {
+        FXMLLoader scene1Loader;
 
         try {
             if (validateLogin()) {
-                FXMLLoader scene1Loader = new FXMLLoader(getClass().getResource("Scenes/HomePage.fxml"));
+
+                if (userNameField.getText().equals("admin") && passwordField.getText().equals("admin5232")) {
+                    scene1Loader = new FXMLLoader(getClass().getResource("Scenes/systemAdmin.fxml"));
+                }
+                else {
+                    scene1Loader = new FXMLLoader(getClass().getResource("Scenes/homePage.fxml"));
+                }
+
                 Parent root = scene1Loader.load();
                 Scene homePageScene = new Scene(root);
+                LoginDataBase.setLogInStatus(true);
 
-                homePageScene.getStylesheets().add(scene1Css);
+                homePageScene.getStylesheets().add(homePageCss);
                 stage.setScene(homePageScene);
                 stage.show();
             }
@@ -66,7 +78,12 @@ public class LoginController implements Initializable {
 
     public boolean validateLogin() {
         String combination = "Username: " + userNameField.getText() + "\nPassword: " + passwordField.getText() + "\n";
+        boolean isValid = LoginDataBase.validateUser(combination);
 
-        return LoginDataBase.validateUser(combination);
+        if (isValid) {
+            UserControl.init(combination);
+        }
+
+        return isValid;
     }
 }

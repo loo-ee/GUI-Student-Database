@@ -10,9 +10,18 @@ public class LinkedList<T> {
 
     private NodeList<T> head = new NodeList<>();
     private String course;
+    private String listName;
 
     public LinkedList() {
         head = null;
+    }
+
+    public void setListName(String name) {
+        this.listName = name;
+    }
+
+    public String getListName() {
+        return this.listName;
     }
 
     public String getCourse() {

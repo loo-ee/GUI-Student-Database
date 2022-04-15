@@ -20,6 +20,6 @@
       <Label fx:id="createPasswordLabel" layoutX="369.0" layoutY="222.0" text="Create password:" />
       <Label fx:id="confirmPasswordLabel" layoutX="361.0" layoutY="263.0" text="Confirm password:" />
       <Button fx:id="registerButton" layoutX="474.0" layoutY="319.0" mnemonicParsing="false" onAction="#register" text="Register" />
-      <Button fx:id="returnButton" layoutX="45.0" layoutY="45.0" mnemonicParsing="false" onAction="#returnLogin" text="Return" />
+      <Button fx:id="returnButton" layoutX="45.0" layoutY="45.0" mnemonicParsing="false" onAction="#returnToPreviousScene" text="Return" />
    </children>
 </AnchorPane>

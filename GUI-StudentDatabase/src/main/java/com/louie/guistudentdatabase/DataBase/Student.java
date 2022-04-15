@@ -15,6 +15,10 @@ public class Student extends HumanData {
         this.id = id;
     }
 
+    public Student() {
+        super();
+    }
+
     public void setStudentInfo() {
         System.out.print("\nEnter your course: ");
         this.course = scanner.nextLine();
@@ -35,6 +39,10 @@ public class Student extends HumanData {
 
     public int[] getGrades() {
         return this.grades;
+    }
+
+    public int getId() {
+        return this.id;
     }
 
     public void showGrades() {

@@ -31,9 +31,7 @@ public class Main extends Application {
             logout(stage);
         });
 
-        LoginController.setStage(stage);
-        RegistrationController.setStage(stage);
-        HomePageController.setStage(stage);
+        initializeProgram(stage);
     }
 
     public void logout(Stage stage) {
@@ -47,6 +45,13 @@ public class Main extends Application {
             System.out.println("[INFO] You have exited the program");
             stage.close();
         }
+    }
+
+    public static void initializeProgram(Stage stage) {
+        LoginController.setStage(stage);
+        RegistrationController.setStage(stage);
+        HomePageController.setStage(stage);
+        SystemAdminController.setStage(stage);
     }
 
     public static void main(String[] args) {
