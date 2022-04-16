@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="guistudentdatabase">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/src/main/resources/com/louie/guistudentdatabase" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
