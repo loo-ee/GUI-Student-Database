@@ -1,8 +1,8 @@
 package com.louie.guistudentdatabase;
 
-import com.louie.guistudentdatabase.BackEnd.Login.ExceptionHandling;
-import com.louie.guistudentdatabase.BackEnd.Login.LoginDataBase;
-import com.louie.guistudentdatabase.BackEnd.Login.User;
+import com.louie.guistudentdatabase.Login.ExceptionHandling;
+import com.louie.guistudentdatabase.Login.LoginDataBase;
+import com.louie.guistudentdatabase.Login.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

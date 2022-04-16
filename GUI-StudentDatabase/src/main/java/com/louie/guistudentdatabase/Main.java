@@ -1,6 +1,6 @@
 package com.louie.guistudentdatabase;
 
-import com.louie.guistudentdatabase.BackEnd.Login.LoginDataBase;
+import com.louie.guistudentdatabase.Login.LoginDataBase;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
