@@ -27,6 +27,10 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        init();
+    }
+
+    public static void init() {
         for (int i = 0; i < LoginDataBase.getUserList().getListSize(); i++) {
             UserControl.init(LoginDataBase.getUserList().returnNode(i));
         }

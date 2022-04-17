@@ -1,12 +1,14 @@
-package com.louie.guistudentdatabase.Login;
+package com.louie.guistudentdatabase.DataBase;
 
 public class User {
     private String userName;
     private String password;
+    private String subject = "Not set";
 
-    public User(String userName, String password) {
+    public User(String userName, String password, String subject) {
         this.userName = userName;
         this.password = password;
+        this.subject = subject;
     }
 
     public User() {}
@@ -25,6 +27,18 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public String getSubject() {
+        return subject;
+    }
+
+    public String getUserInfo() {
+        return toString() + "Subject: " + getSubject() + "\n";
     }
 
     @Override

@@ -1,6 +1,8 @@
 package com.louie.guistudentdatabase.Login;
 
+import com.louie.guistudentdatabase.DataBase.LinkedList;
 import com.louie.guistudentdatabase.DataBase.Student;
+import com.louie.guistudentdatabase.DataBase.User;
 
 import java.io.*;
 import java.util.Vector;

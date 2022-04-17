@@ -1,4 +1,4 @@
-package com.louie.guistudentdatabase.Login;
+package com.louie.guistudentdatabase.DataBase;
 
 public class LinkedList<T> {
     private class NodeList<E> {
@@ -209,7 +209,6 @@ public class LinkedList<T> {
             }
             else {
                 nodePtr = head.next;
-                head = null;
                 head = nodePtr;
             }
         }

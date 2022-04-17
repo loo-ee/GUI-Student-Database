@@ -1,4 +1,4 @@
-package com.louie.guistudentdatabase.Login;
+package com.louie.guistudentdatabase.DataBase;
 
 public class ExceptionHandling extends Exception{
     private String message;

@@ -1,5 +1,8 @@
 package com.louie.guistudentdatabase.Login;
 
+import com.louie.guistudentdatabase.DataBase.LinkedList;
+import com.louie.guistudentdatabase.DataBase.User;
+
 import java.io.*;
 import java.util.Vector;
 
@@ -43,8 +46,7 @@ public class LoginDataBase {
             }
 
             String line;
-            String userName;
-            String password;
+            String userName, password, subject;
             int count = 0;
 
             FileReader reader = new FileReader(userDatabase);
@@ -56,11 +58,12 @@ public class LoginDataBase {
             }
             reader.close();
 
-            for (int i = 0; i < count; i += 2) {
+            for (int i = 0; i < count; i += 3) {
                 userName = userCredentials.get(i);
                 password = userCredentials.get(i+1);
+                subject = userCredentials.get(i+2);
 
-                userList.appendList(new User(userName, password));
+                userList.appendList(new User(userName, password, subject));
             }
             System.out.println("[INFO] Data from database was retrieved");
         }
@@ -81,6 +84,7 @@ public class LoginDataBase {
                     user = userList.returnNode(i);
                     writer.append(user.getUserName()).append("\n");
                     writer.append(user.getPassword()).append("\n");
+                    writer.append(user.getSubject()).append("\n");
                 }
                 System.out.println("[INFO] Data was uploaded to database");
             }
