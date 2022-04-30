@@ -3,6 +3,7 @@ package com.louie.guistudentdatabase;
 import com.louie.guistudentdatabase.DataBase.ExceptionHandling;
 import com.louie.guistudentdatabase.Login.LoginDataBase;
 import com.louie.guistudentdatabase.DataBase.User;
+import com.louie.guistudentdatabase.Login.UserControl;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

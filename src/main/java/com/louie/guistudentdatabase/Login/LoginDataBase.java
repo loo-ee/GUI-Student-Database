@@ -65,7 +65,6 @@ public class LoginDataBase {
 
                 userList.appendList(new User(userName, password, subject));
             }
-            System.out.println("[INFO] Data from database was retrieved");
         }
         catch (IOException e) {
             e.printStackTrace();

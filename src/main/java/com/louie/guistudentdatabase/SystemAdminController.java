@@ -127,6 +127,7 @@ public class SystemAdminController implements Initializable {
                     else {
                         reloadHomePage();
                     }
+                    System.out.println("[INFO] Account was deleted");
                 }
             }
             else {
@@ -159,8 +160,8 @@ public class SystemAdminController implements Initializable {
                     clearClassRecords(false);
                 }
             }
+            reloadHomePage();
         }
-        reloadHomePage();
     }
 
     public void reloadHomePage() throws IOException {

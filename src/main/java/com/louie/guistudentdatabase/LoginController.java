@@ -1,5 +1,6 @@
 package com.louie.guistudentdatabase;
 
+import com.louie.guistudentdatabase.DataBase.User;
 import com.louie.guistudentdatabase.Login.LoginDataBase;
 import com.louie.guistudentdatabase.Login.UserControl;
 import javafx.event.ActionEvent;
@@ -34,6 +35,7 @@ public class LoginController implements Initializable {
         for (int i = 0; i < LoginDataBase.getUserList().getListSize(); i++) {
             UserControl.init(LoginDataBase.getUserList().returnNode(i));
         }
+        System.out.println("[INFO] Data from database was retrieved");
     }
 
     public static void setStage(Stage stage) {

@@ -76,7 +76,6 @@ public class UserControl {
 
                 classRecord.appendList(new Student(name, email, id, age));
             }
-            System.out.println("[INFO] Data from file was retrieved");
         }
         catch (IOException e) {
             e.printStackTrace();
