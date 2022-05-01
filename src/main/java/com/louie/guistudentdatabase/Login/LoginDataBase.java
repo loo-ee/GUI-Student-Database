@@ -1,9 +1,10 @@
 package com.louie.guistudentdatabase.Login;
 
+import com.louie.guistudentdatabase.DataBase.DatabaseHandling;
 import com.louie.guistudentdatabase.DataBase.LinkedList;
 import com.louie.guistudentdatabase.DataBase.User;
 
-import java.io.*;
+import java.io.File;
 import java.util.Vector;
 
 public class LoginDataBase {
@@ -36,43 +37,12 @@ public class LoginDataBase {
     }
 
     public static void readFiles() {
-
-        try {
-            userCredentials.clear();
-
-            if (!userDatabase.isFile()) {
-                writeFiles();
-                System.out.println("[INFO] Database was created");
-            }
-
-            String line;
-            String userName, password, subject;
-            int count = 0;
-
-            FileReader reader = new FileReader(userDatabase);
-            BufferedReader bufferedReader = new BufferedReader(reader);
-
-            while ((line = bufferedReader.readLine()) != null) {
-                userCredentials.add(line);
-                count++;
-            }
-            reader.close();
-
-            for (int i = 0; i < count; i += 3) {
-                userName = userCredentials.get(i);
-                password = userCredentials.get(i+1);
-                subject = userCredentials.get(i+2);
-
-                userList.appendList(new User(userName, password, subject));
-            }
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+        clearUserAccounts();
+        DatabaseHandling.getUserInfo();
+        System.out.println("[INFO] Users fetched");
     }
 
-    public static void writeFiles() {
-
+    /*public static void writeFiles() {
         try {
             FileWriter writer = new FileWriter(userDatabase);
             User user;
@@ -92,7 +62,7 @@ public class LoginDataBase {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     public static User getUser(String combination) {
         return userList.returnNode(combination);

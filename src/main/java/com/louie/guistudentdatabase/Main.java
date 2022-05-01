@@ -1,5 +1,6 @@
 package com.louie.guistudentdatabase;
 
+import com.louie.guistudentdatabase.DataBase.DatabaseHandling;
 import com.louie.guistudentdatabase.Login.LoginDataBase;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -41,7 +42,6 @@ public class Main extends Application {
         alert.setContentText("Press OK to logout");
 
         if (alert.showAndWait().get() == ButtonType.OK) {
-            LoginDataBase.writeFiles();
             System.out.println("[INFO] You have exited the program");
             stage.close();
         }
@@ -54,7 +54,8 @@ public class Main extends Application {
         SystemAdminController.setStage(stage);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
+        DatabaseHandling.getDatabaseConnection();
         launch();
     }
 }

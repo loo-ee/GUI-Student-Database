@@ -1,6 +1,7 @@
 package com.louie.guistudentdatabase.DataBase;
 
 public class User {
+    private int userID;
     private String userName;
     private String password;
     private String subject = "Not set";
@@ -12,6 +13,14 @@ public class User {
     }
 
     public User() {}
+
+    public void setUserID(int ID) {
+        this.userID = ID;
+    }
+
+    public int getUserID() {
+        return this.userID;
+    }
 
     public void setUserName(String userName) {
         this.userName = userName;

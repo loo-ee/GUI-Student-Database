@@ -1,5 +1,6 @@
 package com.louie.guistudentdatabase;
 
+import com.louie.guistudentdatabase.DataBase.DatabaseHandling;
 import com.louie.guistudentdatabase.Login.LoginDataBase;
 import com.louie.guistudentdatabase.Login.UserControl;
 import javafx.event.ActionEvent;
@@ -117,9 +118,9 @@ public class SystemAdminController implements Initializable {
                 if (alert.showAndWait().get() == ButtonType.OK) {
                     String adminDetection = LoginDataBase.getUserList().returnNode(dataListView.getSelectionModel().getSelectedIndex()).getUserName();
                     UserControl.setActiveUser(LoginDataBase.getUserList().returnNode(dataListView.getSelectionModel().getSelectedIndex()));
-                    UserControl.setFileLocation();
-                    UserControl.deleteFile();
                     LoginDataBase.deleteUser(LoginDataBase.getUserList().returnNode(dataListView.getSelectionModel().getSelectedIndex()));
+
+                    DatabaseHandling.deleteUser(UserControl.getUserId(), false);
 
                     if (adminDetection.equals("admin")) {
                         returnToLogin(false);
@@ -135,6 +136,7 @@ public class SystemAdminController implements Initializable {
                 alert.setContentText("Press OK to clear users");
 
                 if (alert.showAndWait().get() == ButtonType.OK) {
+                    DatabaseHandling.deleteUser(0, true);
                     clearClassRecords(false);
 
                     LoginDataBase.clearUserAccounts();
@@ -183,15 +185,13 @@ public class SystemAdminController implements Initializable {
 
         if (singleDeletion) {
             UserControl.setActiveUser(LoginDataBase.getUserList().returnNode(dataListView.getSelectionModel().getSelectedIndex()));
-            UserControl.setFileLocation();
-            UserControl.deleteFile();
+
             UserControl.clearClassRecord();
         }
         else {
             for (int i = 0; i < LoginDataBase.getUserList().getListSize(); i++) {
                 UserControl.setActiveUser(LoginDataBase.getUserList().returnNode(i));
-                UserControl.setFileLocation();
-                UserControl.deleteFile();
+                DatabaseHandling.deleteClassRecord(UserControl.getActiveUser());
                 UserControl.clearClassRecord();
             }
         }
