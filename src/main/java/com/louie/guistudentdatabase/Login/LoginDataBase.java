@@ -42,28 +42,6 @@ public class LoginDataBase {
         System.out.println("[INFO] Users fetched");
     }
 
-    /*public static void writeFiles() {
-        try {
-            FileWriter writer = new FileWriter(userDatabase);
-            User user;
-            userCredentials.clear();
-
-            if (userList.getListSize() != 0) {
-                for (int i = 0; i < userList.getListSize(); i++) {
-                    user = userList.returnNode(i);
-                    writer.append(user.getUserName()).append("\n");
-                    writer.append(user.getPassword()).append("\n");
-                    writer.append(user.getSubject()).append("\n");
-                }
-                System.out.println("[INFO] Data was uploaded to database");
-            }
-            writer.close();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }*/
-
     public static User getUser(String combination) {
         return userList.returnNode(combination);
     }

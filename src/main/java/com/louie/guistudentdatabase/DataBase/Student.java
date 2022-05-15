@@ -6,35 +6,29 @@ public class Student extends HumanData {
     private String course;
     private int id;
     private int yearLevel;
-    private int[] grades;
+    private int[] grades = new int[4];
 
     Scanner scanner = new Scanner(System.in);
 
-    public Student(String name, String email, int id, int age) {
+    public Student(String name, String email, int age) {
         super(name, age, email);
-        this.id = id;
     }
 
     public Student() {
         super();
     }
 
-    public void setStudentInfo() {
-        System.out.print("\nEnter your course: ");
-        this.course = scanner.nextLine();
-        System.out.print("Enter your year level: ");
-        this.yearLevel = scanner.nextInt();
-        scanner.nextLine();
+    public void setStudentInfo(int id, int yearLevel, String course) {
+        this.id = id;
+        this.yearLevel = yearLevel;
+        this.course = course;
     }
 
-    public void inputGrades(int howManyGrades) {
-        grades = new int[howManyGrades];
-
-        for (int i = 0; i<howManyGrades; i++) {
-            System.out.print("Enter grade #" + (i+1) + ": ");
-            grades[i] = scanner.nextInt();
-        }
-        scanner.nextLine();
+    public void setGrades(int english, int math, int history, int economics) {
+        grades[0] = english;
+        grades[1] = math;
+        grades[2] = history;
+        grades[3] = economics;
     }
 
     public int[] getGrades() {
@@ -45,13 +39,13 @@ public class Student extends HumanData {
         return this.id;
     }
 
-    public void showGrades() {
-        System.out.println("\nShowing grades...");
-
-        for (int i = 0; i < this.grades.length; i++) {
-            System.out.print("Grade #" + (i+1) + ": " + this.grades[i] + "\n");
-        }
-    }
+//    public void showGrades() {
+//        System.out.println("\nShowing grades...");
+//
+//        for (int i = 0; i < this.grades.length; i++) {
+//            System.out.print("Grade #" + (i+1) + ": " + this.grades[i] + "\n");
+//        }
+//    }
 
     public float getGradeAverage() {
         float average = 0;
@@ -63,14 +57,14 @@ public class Student extends HumanData {
         return average;
     }
 
-    public void showStudentData() {
-        System.out.println("Name: \t" + this.name);
-        System.out.println("Age: \t" + this.age);
-        System.out.println("ID: \t" + this.id);
-        System.out.println("Email: \t" + this.email);
-        System.out.println("Course: " + this.course);
-        System.out.println("Year Level: " + this.yearLevel);
-    }
+//    public void showStudentData() {
+//        System.out.println("Name: \t" + this.name);
+//        System.out.println("Age: \t" + this.age);
+//        System.out.println("ID: \t" + this.id);
+//        System.out.println("Email: \t" + this.email);
+//        System.out.println("Course: " + this.course);
+//        System.out.println("Year Level: " + this.yearLevel);
+//    }
 
     @Override
     public String toString() {

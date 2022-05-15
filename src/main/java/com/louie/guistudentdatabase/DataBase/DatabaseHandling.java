@@ -39,17 +39,28 @@ public class DatabaseHandling {
     public static void getUserInfo() {
         try {
             Connection connection = getDatabaseConnection();
-            PreparedStatement statement = null;
-            statement = connection.prepareStatement("SELECT * FROM users");
-            ResultSet result = statement.executeQuery();
+            PreparedStatement statement1;
+            statement1 = connection.prepareStatement("SELECT * FROM users");
+            ResultSet result1 = statement1.executeQuery();
 
-            while (result.next()) {
+            while (result1.next()) {
                 User userData = new User();
-                userData.setUserID(result.getInt("user_id"));
-                userData.setUserName(result.getString("userName"));
-                userData.setPassword(result.getString("userPassword"));
+                userData.setUserID(result1.getInt("user_id"));
+                userData.setUserName(result1.getString("userName"));
+                userData.setPassword(result1.getString("userPassword"));
 
                 LoginDataBase.addUser(userData);
+            }
+
+            PreparedStatement statement2;
+            statement2 = connection.prepareStatement("SELECT * FROM students");
+            ResultSet result2 = statement2.executeQuery();
+
+            while (result2.next()) {
+                Student studentData = new Student(result2.getString("name"), result2.getString("email"), result2.getInt("age"));
+                studentData.setStudentInfo(result2.getInt("student_id"), result2.getInt("year_level"), result2.getString("course"));
+
+                // TODO -> Create a Linked List for class-students
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -73,12 +84,14 @@ public class DatabaseHandling {
         }
     }
 
-    public static void createClassRecordTable() {
+    public static void insertValuesToClassRecord(int[] grades) {
+        int[] test = {1,2,3,4};
+
         try {
             Connection connection = getDatabaseConnection();
-            String tableName = UserControl.getActiveUser().getUserName();
-            PreparedStatement statement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS "+tableName+"(user_id INT, PRIMARY KEY(user_id), FOREIGN KEY(user_id) REFERENCES users(user_id))");
-            statement.executeUpdate();
+            String statement = "INSERT INTO students(English) VALUES("+test[0]+")";
+            PreparedStatement preparedStatement = connection.prepareStatement(statement);
+            preparedStatement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }

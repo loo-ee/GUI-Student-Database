@@ -58,7 +58,7 @@ public class LoginController implements Initializable {
                 Parent root = homePageLoader.load();
                 Scene homePageScene = new Scene(root);
                 LoginDataBase.setLogInStatus(true);
-                DatabaseHandling.createClassRecordTable();
+//                DatabaseHandling.insertValuesToClassRecord();
 
                 homePageScene.getStylesheets().add(homePageCss);
                 stage.setScene(homePageScene);
