@@ -1,5 +1,6 @@
 package com.louie.guistudentdatabase;
 
+import com.louie.guistudentdatabase.DataBase.DatabaseHandling;
 import com.louie.guistudentdatabase.DataBase.ExceptionHandling;
 import com.louie.guistudentdatabase.Login.LoginDataBase;
 import com.louie.guistudentdatabase.DataBase.User;
@@ -36,6 +37,10 @@ public class RegistrationController {
                 throw new ExceptionHandling("Please fill all fields!");
             }
 
+            if (userNameField.getText().matches(".*[0-9].*")) {
+                throw new ExceptionHandling("Username must be a string!");
+            }
+
             if (validateLogin()) {
                 userNameField.clear();
                 passwordField.clear();
@@ -50,6 +55,7 @@ public class RegistrationController {
                 user.setUserName(userNameField.getText());
                 user.setPassword(passwordField.getText());
                 LoginDataBase.addUser(user);
+                DatabaseHandling.insertUserValue(user);
                 System.out.println("[STATUS] Database was updated");
                 LoginDataBase.displayList("User");
                 registrationLabel.setText("Registration completed!");
@@ -59,7 +65,6 @@ public class RegistrationController {
                 confirmField.clear();
 
                 LoginDataBase.refreshUserNamesVector();
-                LoginDataBase.writeFiles();
                 HomePageController.setFetchData(true);
             }
             else {

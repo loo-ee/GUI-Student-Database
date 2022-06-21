@@ -1,5 +1,6 @@
 package com.louie.guistudentdatabase;
 
+import com.louie.guistudentdatabase.DataBase.DatabaseHandling;
 import com.louie.guistudentdatabase.Login.LoginDataBase;
 import com.louie.guistudentdatabase.Login.UserControl;
 import javafx.event.ActionEvent;
@@ -17,9 +18,12 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class HomePageController implements Initializable {
-    @FXML private ListView<String> homePageListView;
+    @FXML private ListView<String> studentListView;
+    @FXML private ListView<String> gradesListView;
     @FXML private TextField classRecordNameTextField;
     @FXML private Label homePageLabel;
+    @FXML private Label gradesLabel;
+    @FXML private Label userListLabel;
 
     private static boolean fetchData = true;
     private static boolean isClassRecordNamed = false;
@@ -29,7 +33,8 @@ public class HomePageController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        homePageListView.getItems().addAll(LoginDataBase.getListUserNames(fetchData));
+        // TODO -> Change source of HomePageController-init
+        studentListView.getItems().addAll(LoginDataBase.getListUserNames(fetchData));
         fetchData = false;
     }
 
@@ -60,37 +65,20 @@ public class HomePageController implements Initializable {
         stage.show();
     }
 
-    public void registerUser() throws IOException {
-        FXMLLoader registration = new FXMLLoader(getClass().getResource("Scenes/registration.fxml"));
-        Parent root = registration.load();
-        Scene scene1 = new Scene(root);
+    public void inputGrades(ActionEvent event) {
+        String[] subjects = {"English", "Math", "History", "Economics"};
+        int[] grades = new int[4];
 
-        scene1.getStylesheets().add(registrationCss);
-        stage.setScene(scene1);
-        stage.show();
+        for (int i = 0; i < 4; i++) {
+
+        }
     }
 
-    public void setClassRecordName() {
-        String userInput = classRecordNameTextField.getText();
+    public void addStudent(ActionEvent event) {
 
-        if (userInput.equals("")) {
-            classRecordNameTextField.setPromptText("Name is empty!");
-        }
-        else {
-            UserControl.setClassRecordName(userInput);
-            classRecordNameTextField.clear();
-            classRecordNameTextField.setPromptText("Redirecting now...");
-            UserControl.setClassRecordName(userInput);
-            System.out.println("[INFO] Class record name was set to \"" + userInput + "\"");
-            isClassRecordNamed = true;
-        }
     }
 
     public void openClassRecord(ActionEvent event) {
-
-        if (!isClassRecordNamed) {
-            setClassRecordName();
-        }
 
     }
 }

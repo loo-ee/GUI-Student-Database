@@ -1,6 +1,6 @@
 package com.louie.guistudentdatabase;
 
-import com.louie.guistudentdatabase.DataBase.User;
+import com.louie.guistudentdatabase.DataBase.DatabaseHandling;
 import com.louie.guistudentdatabase.Login.LoginDataBase;
 import com.louie.guistudentdatabase.Login.UserControl;
 import javafx.event.ActionEvent;
@@ -43,21 +43,22 @@ public class LoginController implements Initializable {
     }
 
     public void login(ActionEvent event) {
-        FXMLLoader scene1Loader;
+        FXMLLoader homePageLoader;
 
         try {
             if (validateLogin()) {
 
                 if (userNameField.getText().equals("admin") && passwordField.getText().equals("admin5232")) {
-                    scene1Loader = new FXMLLoader(getClass().getResource("Scenes/systemAdmin.fxml"));
+                    homePageLoader = new FXMLLoader(getClass().getResource("Scenes/systemAdmin.fxml"));
                 }
                 else {
-                    scene1Loader = new FXMLLoader(getClass().getResource("Scenes/homePage.fxml"));
+                    homePageLoader = new FXMLLoader(getClass().getResource("Scenes/homePage.fxml"));
                 }
 
-                Parent root = scene1Loader.load();
+                Parent root = homePageLoader.load();
                 Scene homePageScene = new Scene(root);
                 LoginDataBase.setLogInStatus(true);
+//                DatabaseHandling.insertValuesToClassRecord();
 
                 homePageScene.getStylesheets().add(homePageCss);
                 stage.setScene(homePageScene);
@@ -88,6 +89,8 @@ public class LoginController implements Initializable {
 
         if (isValid) {
             UserControl.init(combination);
+            LoginDataBase.readFiles();
+            UserControl.setActiveUser(LoginDataBase.getUser(combination));
         }
 
         return isValid;
